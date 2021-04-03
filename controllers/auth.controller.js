@@ -18,7 +18,6 @@ const login = async (req, res = response) => {
             })
         }
 
-        console.log(usuario.estado)
         if (!usuario.estado) {
             return res.status(400).json({
                 msg: 'El usuario / password no son correctos - estado: false'
