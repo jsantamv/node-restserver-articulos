@@ -21,3 +21,7 @@ Ejecutar ```npm install``` para reconstruir los modulos
 ```heroku logs -n 100 --tail```
 donde 100 es la cantidad a observar de los ulitmos logs
 y tail, para mantener escuchando los logs
+
+## Documentacion del Servicio en POSTMAN
+
+[Documentacion](https://documenter.getpostman.com/view/4629405/TzCP8Tc9)
