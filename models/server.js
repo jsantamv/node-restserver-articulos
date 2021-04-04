@@ -11,10 +11,13 @@ class Server {
     constructor() {
         this.app = express()
         this.port = process.env.PORT
-        
+
         //defino mis rutas
-        this.usersPath = '/api/users'
-        this.authPath = '/api/auth'
+        this.path = {
+            auth: '/api/auth',
+            category: '/api/category',
+            users: '/api/users'
+        }
 
         //conectar a la db
         this.databaseCNN()
@@ -38,14 +41,15 @@ class Server {
         //Lectura y Parseo del Body
         //lo que viene formatea en JSON
         this.app.use(express.json())
-        
+
         // directorio publico
         this.app.use(express.static('public'))
     }
 
     routes() {
-        this.app.use(this.authPath, require('../routes/auth.routes'))
-        this.app.use(this.usersPath, require('../routes/user.routes'))
+        this.app.use(this.path.auth, require('../routes/auth.routes'))
+        this.app.use(this.path.category, require('../routes/category.routes'))
+        this.app.use(this.path.users, require('../routes/user.routes'))
     }
 
     listen() {
