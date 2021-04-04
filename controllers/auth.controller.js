@@ -36,6 +36,8 @@ const login = async (req, res = response) => {
         // Generar JWT
         const token = await generarJWT(usuario.id)
 
+        
+
         res.json({
             usuario,
             token
@@ -88,7 +90,7 @@ const googleSingIn = async (req, res = response) => {
             usuario,
             token
         })
-        
+
     } catch (error) {
         res.status(400).json({
             msg: `Token de google invalido: ${error.message}}`,
