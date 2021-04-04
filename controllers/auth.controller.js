@@ -78,7 +78,7 @@ const googleSingIn = async (req, res = response) => {
         //Si el usuario en DB  status false
         if (!usuario.estado) {
             return res.status(401).json({
-                msg: `Hable con el administrador. Usuario en ${estado}`
+                msg: `Hable con el administrador. Usuario bloqueado`
             })
         }
 
@@ -88,6 +88,7 @@ const googleSingIn = async (req, res = response) => {
             usuario,
             token
         })
+        
     } catch (error) {
         res.status(400).json({
             msg: `Token de google invalido: ${error.message}}`,
