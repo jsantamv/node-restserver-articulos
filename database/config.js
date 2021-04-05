@@ -16,7 +16,7 @@ const dbConnection = async () => {
 
     } catch (err) {
         console.log(err)
-        throw new Error('Error a la hora de inciar la base de datos'.red)
+        throw new Error('>>> ERROR A LA HORA DE INCIAR LA BASE DE DATOS <<<'.red)
     }
 }
 

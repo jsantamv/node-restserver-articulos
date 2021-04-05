@@ -11,7 +11,7 @@ const { response } = require("express")
  */
 const esAdminRole = (req, res = response, next) => {
 
-    //validamos undefined
+    //validamos undefined, osea tiene que estar con token
     if (!req.usuario) {
         return res.status(500).json({
             msg: 'Se quiere verificar el rol sin validar el token primero'
