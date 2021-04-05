@@ -18,5 +18,18 @@ const CategorySchema = Schema({
     }
 })
 
+//Sobreescribimos el metodo de toJSON
+//para retornar solo lo que quiero
+CategorySchema.methods.toJSON = function () {
+    const { __v,
+        _id,
+        ...data
+    } = this.toObject()
+
+    //transformar _id de db mongo en uid
+    data.uid = _id
+    return data
+}
+
 module.exports = model('Category', CategorySchema)
 

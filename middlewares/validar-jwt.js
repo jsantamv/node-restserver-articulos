@@ -63,7 +63,63 @@ const validarJWT = async (req, res = response, next) => {
 }
 
 
+/**Validar si tiene un role valido */
+const validarRoleAdminJWT = async (req, res = response, next) => {
+
+    const token = req.header('x-token')
+
+    //Valido que envien el TOKEN
+    if (!token) {
+        return res.status(401).json({
+            msg: 'No hay token en la peticion'
+        })
+    }
+
+    //Valido que sean un token valido, DEL USUARIO logueado
+    try {
+
+        const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY)
+
+        //Leemos el usuario que modifica uid
+        const usuario = await Usuario.findById(uid)
+
+        //valido que usuario exista
+        if (!usuario) {
+            return res.status(401).json({
+                msg: 'Token no valido - usuario no existe en DB'
+            })
+        }
+
+        //Verificar si el uid tiene estado en true
+        if (!usuario.estado === true) {
+            return res.status(401).json({
+                msg: 'Token no valido - usuario estado false'
+            })
+        }
+
+        if (usuario.rol !== 'ADMIN_ROLE'){
+            return res.status(401).json({
+                msg: 'Token no valido - usuario role no es admin'
+            })
+        }
+
+        //Cargo el Request para mantener los datos del usuario 
+        // autenticado.
+        req.usuario = usuario
+        next()
+    } catch (error) {
+        //Este error lo podemos almacenar en DB o archivo
+        //para verlo mas facil
+        console.warn('ADVERTENCIA con el TOKEN',`${error}`.bgRed)
+        res.status(401).json({
+            msg: 'Token no valido'
+        })
+    }
+}
+
+
 
 module.exports = {
-    validarJWT
+    validarJWT,
+    validarRoleAdminJWT
 }

@@ -36,8 +36,6 @@ const usersGet = async (req, res = response) => {
 
 /**
  * Actualizar un usuario por Id
- * @param {*} req 
- * @param {*} res 
  */
 const usersPut = async (req, res = response) => {
 
