@@ -5,6 +5,7 @@ require('colors')
 
 //libreria para la conecion con MongoDB
 const { dbConnection } = require('../database/config')
+const fileUpload = require('express-fileupload')
 
 
 class Server {
@@ -18,7 +19,8 @@ class Server {
             buscar: '/api/buscar',
             category: '/api/category',
             users: '/api/users',
-            product: '/api/product'
+            product: '/api/product',
+            uploads: '/api/uploads'
         }
 
         //conectar a la db
@@ -46,6 +48,13 @@ class Server {
 
         // directorio publico
         this.app.use(express.static('public'))
+
+        // File Upload - Carga de archivos
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/'
+        }));
+
     }
 
     routes() {
@@ -53,6 +62,7 @@ class Server {
         this.app.use(this.path.buscar, require('../routes/buscar.routes'))
         this.app.use(this.path.category, require('../routes/category.routes'))
         this.app.use(this.path.product, require('../routes/product.routes'))
+        this.app.use(this.path.uploads, require('../routes/uploads.routes'))
         this.app.use(this.path.users, require('../routes/user.routes'))
     }
 
