@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const extDefault = ['png', 'jpg', 'jpeg', 'gif']
 
-const subirArchivo = (files, extValidadas = extDefault) => {
+const subirArchivo = (files, extValidadas = extDefault, carpeta = '') => {
 
     return new Promise((resolve, reject) => {
 
@@ -12,29 +12,23 @@ const subirArchivo = (files, extValidadas = extDefault) => {
         const extension = nombreCortado[nombreCortado.length - 1]
 
         //Validar la extencion
-        const extesionesValidas = extValidadas;
-        
-        if (!extesionesValidas.includes(extension)) {
-            return reject(`La extencion ${extension} no es valida, Validas: ${extesionesValidas} `)
+        if (!extValidadas.includes(extension)) {
+            return reject(`La extencion ${extension} no es valida, Validas: ${extValidadas} `)
         }
 
         const nombreTmp = uuidv4() + '.' + extension
 
-        const uploadPath = path.join(__dirname, '../uploads/', nombreTmp);
+        const uploadPath = path.join(__dirname, '../uploads/', carpeta, nombreTmp);
 
         // Use the mv() method to place the file somewhere on your server
         archivo.mv(uploadPath, function (err) {
             if (err) {
-                return res.status(500).json(err);
+                reject(err)
             }
 
-            res.json({ msg: 'File uploaded!' + uploadPath });
+            resolve(nombreTmp);
         })
-
-
     })
-
-
 }
 
 
