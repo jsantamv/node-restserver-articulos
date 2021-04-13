@@ -11,6 +11,8 @@ Ejecutar ```npm install``` para reconstruir los modulos
 3. CORS https://www.npmjs.com/package/cors
 4. Utilizar NODEMON nodemon app
 5. Carga de archivos [express-fileupload](https://www.npmjs.com/package/express-fileupload)
+6. Control y carga de imagenes [cloudinary](https://www.npmjs.com/package/cloudinary)  ```npm install cloudinary```
+
 
 ## 2. Paquete para instalar la password
 1. bcryptjs: https://www.npmjs.com/package/bcryptjs ```npm i bcryptjs```
