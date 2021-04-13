@@ -94,13 +94,18 @@ const obtenerImagen = async (req, res = response) => {
             break;
     }
 
-    //Limpiamos imagnes previas
+
+
+    //Obtenemos la imange
     if (modelo.img) {
-        const pathImagen = path.join(__dirname, '../uploads', coleccion, modelo.img)
-        console.log(pathImagen)
-        if (fs.existsSync(pathImagen)) {
-            return res.sendFile(pathImagen)
-        }
+        /*Busqueda de manera fisica*/
+        // const pathImagen = path.join(__dirname, '../uploads', coleccion, modelo.img)
+        // if (fs.existsSync(pathImagen)) {
+        //     return res.sendFile(pathImagen)
+        // }
+
+        //devolvemos la imagen url
+        return res.json(modelo.img)
     }
 
     const pathImagen = path.join(__dirname, '../assets/no-image.jpg')
